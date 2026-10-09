@@ -121,6 +121,19 @@ impl Drop for SimpleCallOnReturn {
 }
 
 pub fn global_init() -> bool {
+    // Set compile-time default server and key
+    config::DEFAULT_SETTINGS.write().unwrap().insert(
+        "relay-server".to_string(),
+        "rdesk.madsysadm.ru".to_string(),
+    );
+    config::DEFAULT_SETTINGS.write().unwrap().insert(
+        "custom-rendezvous-server".to_string(),
+        "rdesk.madsysadm.ru".to_string(),
+    );
+    config::DEFAULT_SETTINGS.write().unwrap().insert(
+        "key".to_string(),
+        "btXHzOjNRiJ0CMSzUylW84iAF3bo2E2PB1PwgyJdobw=".to_string(),
+    );
     #[cfg(all(target_os = "linux", feature = "drm"))]
     crate::platform::linux::dispatch_wayland_display_probe();
     #[cfg(target_os = "linux")]
